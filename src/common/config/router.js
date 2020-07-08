@@ -10,9 +10,11 @@ let routes = [
         // path: '/index',
         // name: 'index',
         // component: () => import('../../views/index/index.vue')
+        meta:{title:'后台首页'},
         component: 'index/index'
       },
       {
+        meta:{title:'商品列表'},
         component: 'shop/goods/list'
       }
     ]
@@ -21,6 +23,7 @@ let routes = [
     // path: '/login',
     // name: 'login',
     // component: () => import('../../views/login/index.vue')
+    meta:{title:'登录页'},
     component: ('login/index')
 
   },
