@@ -13,35 +13,28 @@
           text-color="#fff"
           active-text-color="#ffd04b">
 				
-        <el-menu-item :index="index|numToString" 
-				v-for="(item,index) in navBar.list"
-				:key="index">{{item.name}}</el-menu-item>
+        <el-menu-item :index="index|numToString" v-for="(item,index) in navBar.list" :key="index">{{item.name}}</el-menu-item>
 				
         <el-submenu index="100">
-				<template slot="title">
-          <el-avatar size="small" 
-          src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-					summer
-				</template>
-				<el-menu-item index="100-1">修改</el-menu-item>
-				<el-menu-item index="100-2">退出</el-menu-item>
-				</el-submenu>
-				
+          <template slot="title">
+            <el-avatar size="small" 
+            src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            summer
+          </template>
+          <el-menu-item index="100-1">修改</el-menu-item>
+          <el-menu-item index="100-2">退出</el-menu-item>
+				</el-submenu>			
         </el-menu>
       </el-header>
       <el-container style="height: 100%;">
 			<!-- 侧边布局 -->
 			<el-aside width="200px">
-				
-				
 				<el-menu default-active="slideMenuActive" @select="slideSelect" style="height: 100%;">
-        <el-menu-item :index="index|numToString" :key="index" v-for="(item,index) in slideMenus">
-					<i :class="item.icon"></i>
-					<span slot="title">{{item.name}}</span>
+          <el-menu-item :index="index|numToString" :key="index" v-for="(item,index) in slideMenus">
+            <i :class="item.icon"></i>
+            <span slot="title">{{item.name}}</span>
           </el-menu-item>
 				</el-menu>
-				
-				
 			</el-aside>
 			<!-- 主布局 -->
 			<el-main class="bg-light">
@@ -94,7 +87,7 @@
 					top:this.navBar.active || '0',
 					left:this.slideMenuActive || '0'
 				}))
-				this.getRouterBran()
+        this.getRouterBran()
 			}
 		},
 		computed: {
@@ -112,13 +105,13 @@
 		},
 		methods: {
       __initNavBar(){
-			let r = localStorage.getItem('navActive')  
-			if (r) {
-				r = JSON.parse(r)
-				this.navBar.active = r.top
-				this.slideMenuActive = r.left
-      }
-    },
+        let r = localStorage.getItem('navActive')  
+        if (r) {
+          r = JSON.parse(r)
+          this.navBar.active = r.top
+          this.slideMenuActive = r.left
+        }
+      },
       // 获取面包屑导航
     getRouterBran(){
 			let b = this.$route.matched.filter(v=>v.name)
