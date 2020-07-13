@@ -1,36 +1,32 @@
 let routes = [
-  {
-    // path: '/',
-    // name: 'layout',
-    // component: () => import('../../views/layout.vue'),
-    component: 'layout',
-    redirect: {name: 'index'},
-    children:[
-      {
-        // path: '/index',
-        // name: 'index',
-        // component: () => import('../../views/index/index.vue')
-        meta:{title:'后台首页'},
-        component: 'index/index'
-      },
-      {
-        meta:{title:'商品列表'},
-        component: 'shop/goods/list'
-      }
-    ]
-  },
-  {
-    // path: '/login',
-    // name: 'login',
-    // component: () => import('../../views/login/index.vue')
-    meta:{title:'登录页'},
-    component: ('login/index')
-
-  },
-  {
-    path:'*',
-    redirect: {name: 'index'}
-  }
+	{
+		path:'/',
+		name:'layout',
+		redirect:{name:'index'},
+		component:'layout',
+		children:[
+			{
+				meta:{title:'后台首页'},
+				component:'index/index'
+			},
+			{
+				meta:{title:'商品列表'},
+				component:'shop/goods/list'
+			},
+			{
+				meta:{title:'相册管理'},
+				component:'image/index'
+			}
+		]
+	},
+	{
+		meta:{title:'登录页'},
+		component:'login/index'
+	},
+	{
+		path:'*',
+		redirect:{name:'index'},
+	}
 ]
 
 // 获取路由信息的方法

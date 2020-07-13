@@ -1,5 +1,5 @@
 <template>
-	<div >
+	<div>
 		
 		<!-- 数据统计 -->
 		<el-row :gutter="20">
@@ -24,23 +24,31 @@
 		<!-- 店铺、订单提示 | 统计图 -->
 		<el-row :gutter="20" class="mt-3">
 			<!-- 店铺、订单提示 -->
-			<el-col
-        :span="12" class="d-flex flex-column" style="height:370px;justify-content:space-between;">
-        <el-card class="box-card" v-for="(tip,index) in tips" :key="index" shadow="never">
-          <div slot="header" class="clearfix">
-            <span>{{tip.title}}</span>
-            <el-button style="float:right" size="small" type="text">{{tip.desc}}</el-button>
-          </div>
-          <div class="row">
-            <div :class="tip.list.length|getCol" v-for="(li,i) in tip.list" :key="i">
-              <button class="btn btn-light w-100">
-                <h4 class="mt-1">{{li.value}}</h4>
-                <small class="text-muted">{{li.name}}</small>
-              </button>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
+			<el-col :span="12" class="d-flex flex-column" 
+			style="height: 370px;justify-content: space-between;">
+			
+				<el-card class="box-card" shadow="never"
+				v-for="(tip,ti) in tips" :key="ti">
+					<div slot="header" class="clearfix">
+						<span>{{tip.title}}</span>
+						<el-button style="float: right; padding: 3px 0" 
+						type="text">{{tip.desc}}</el-button>
+					</div>
+					<div class="row">
+						<div :class="tip.list.length|getCol" 
+						v-for="(tlist,listi) in tip.list"
+						:key="listi">
+							<button class="btn btn-light w-100">
+								<h4 class="mb-1">{{tlist.value}}</h4>
+								<small class="text-muted">
+								{{tlist.name}}</small>
+							</button>
+						</div>
+						
+					</div>
+				</el-card>
+				
+			</el-col>
 			<!-- 统计图 -->
 			<el-col :span="12">
 				<el-card class="box-card" style="height: 370px;" 
@@ -103,20 +111,20 @@
 					border
 					style="width: 100%">
 					<el-table-column
-              type="index"
-              label="#"
-              width="50">
+							type="index"
+							label="#"
+							width="50">
 					</el-table-column>
 					
 					<el-table-column
-              prop="name"
-              label="商品信息"> 
+							prop="name"
+							label="商品信息">
 					</el-table-column>
 
 					<el-table-column
-              prop="num"
-              label="销量"
-              width="50">
+							prop="num"
+							label="销量"
+							width="50">
 					</el-table-column>
 
 				</el-table>

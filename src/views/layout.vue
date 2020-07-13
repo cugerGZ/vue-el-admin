@@ -2,16 +2,9 @@
 	<div>
 		
 		<el-container style="position: absolute;left: 0;top: 0;bottom: 0;right: 0; overflow: hidden;">
-      <el-header class="d-flex align-items-center" 
-      style="background: #545c64;">
-      <a class="h5 text-light mb-0 mr-auto">{{$conf.logo}}</a>
-        <el-menu
-        :default-active="navBar.active"
-          mode="horizontal"
-          @select="handleSelect"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b">
+      <el-header class="d-flex align-items-center" style="background: #545c64;">
+				<a class="h5 text-light mb-0 mr-auto">{{$conf.logo}}</a>
+					<el-menu :default-active="navBar.active" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
 				
         <el-menu-item :index="index|numToString" v-for="(item,index) in navBar.list" :key="index">{{item.name}}</el-menu-item>
 				
@@ -37,22 +30,22 @@
 				</el-menu>
 			</el-aside>
 			<!-- 主布局 -->
-			<el-main class="bg-light">
+			<el-main class="bg-light" style="position:relative">
 			
 				<!-- 面包屑导航 -->
 				<div class="border-bottom mb-3 bg-white" v-if="bran.length > 0" style="padding: 20px;margin: -20px;">
 					<el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="(item,index) in bran" :key="index" :to="{ path: item.path }">{{item.title}}</el-breadcrumb-item>
+						<el-breadcrumb-item v-for="(item,index) in bran" :key="index" :to="{ path: item.path }">{{item.title}}</el-breadcrumb-item>
 					</el-breadcrumb>
 				</div>
 				
 				<!-- 主内容 -->
 				<router-view></router-view>
-        <el-backtop target=".el-main" :bottom="100">
-          <div style="height: 100%; width: 100%; background-color: #f2f5f6; box-shadow: 0 0 6px rgba(0,0,0, .12); text-align: center; line-height: 40px;color: #1989fa;">
-            UP
-          </div>
-        </el-backtop>
+				<el-backtop target=".el-main" :bottom="100">
+					<div style="height: 100%; width: 100%; background-color: #f2f5f6; box-shadow: 0 0 6px rgba(0,0,0, .12); text-align: center; line-height: 40px;color: #1989fa;">
+						UP
+					</div>
+				</el-backtop>
 			
 			</el-main>
     </el-container>
@@ -131,6 +124,12 @@
 			this.bran = arr
     },
     handleSelect(key) {
+			if(key === '100-1'){
+				return console.log("修改资料")
+			}
+			if(key === '100-2'){
+				return console.log("退出登录")
+			}
 			this.navBar.active = key
 			// 默认选中跳转到当前激活
 			this.slideMenuActive = '0'
