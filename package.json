@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "awe-dnd": "^0.3.4",
     "core-js": "^3.6.5",
     "echarts": "^4.8.0",
     "element-ui": "^2.4.5",
