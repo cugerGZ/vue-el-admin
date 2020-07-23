@@ -48,8 +48,8 @@
           </el-main>
         </el-container>
       </el-container>
-      <el-footer class="boeder-top d-flex align-items-center px-0">
-        <div style="width:200px flex-shrink:0" class="h-100 d-flex justify-content-center align-items-center border-right">
+      <el-footer class="border-top d-flex align-items-center px-0">
+        <div style="width:200px;flex-shrink:0" class="h-100 d-flex justify-content-center align-items-center border-right">
           <el-button-group>
             <el-button size="mini">上一页</el-button>
             <el-button size="mini">下一页</el-button>

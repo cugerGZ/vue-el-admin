@@ -54,6 +54,7 @@ export default {
   mounted(){
     // 监听拖拽排序结束
     this.$dragging.$on('dragend', (e) => {
+      console.log(e)
       if(e.group === 'skuItem'+ this.index){
         this.sortSkuValue({
           index: this.index,

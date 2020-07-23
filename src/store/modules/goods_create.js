@@ -34,15 +34,15 @@ export default {
                 ]
             },
             {
-                name: "颜色",
+                name: "尺寸",
                 type: 0, // 规格类型 0无 1颜色 2图片
                 list: [{
-                        name: "黄色",
+                        name: "X",
                         image: "",
                         color: ""
                     },
                     {
-                        name: "红色",
+                        name: "XL",
                         image: "",
                         color: ""
                     }
@@ -90,6 +90,7 @@ export default {
                 return []
             }
             let arr = $Util.cartesianProductOf(...sku_list)
+            console.log(arr)
             return arr.map(v => {
                 let obj = {
                     skus: [],

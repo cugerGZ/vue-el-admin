@@ -12,9 +12,10 @@
         <tr v-for="(item,index) in list" :key="index">
           <th scope="row" v-for="(sku,skuI) in item.skus" :key="skuI" class="text-center">{{sku.name}}</th>
           <td class="text-center" width="100">
-            <span class="btn btn-light border mr-2">
+            <span class="btn btn-light" @click="chooseImage(item)" v-if="!item.image">
               <i class="el-icon-plus"></i>
             </span>
+            <img :src="item.image" v-else style="width:40px;height:40px;cursor:pointer" class="rounded" @click="chooseImage">
           </td>
           <td class="text-center" width="100">
             <input type="number" v-model="item.pprice" class="form-control text-center">
@@ -45,6 +46,7 @@
 <script>
 import {mapGetters,mapState} from 'vuex'
 export default {
+  inject:['app'],
   data(){
     return {
       list:[]
@@ -67,6 +69,13 @@ export default {
   },
   mounted(){
     this.list = this.tableData
+  },
+  methods:{
+    chooseImage(item){
+      this.app.chooseImage((res) => {
+        item.image = res[0].url
+      },1)
+    }
   }
 }
 </script>
