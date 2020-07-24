@@ -3,7 +3,7 @@
     <div class="card-header d-flex align-items-center" >
       规格项：
       <el-input size="mini" style="width:200px" :value="item.name" @input="vModel('name', index, $event)">
-        <el-button slot="append" icon="el-icon-more"></el-button>
+        <el-button slot="append" icon="el-icon-more" @click="chooseSkus"></el-button>
       </el-input>
       <el-radio-group size="mini" style="margin-bottom:-10px" class="ml-2" :value="item.type"  @input="vModel('type',index,$event)">
         <el-radio :label="0">无</el-radio>
@@ -29,6 +29,7 @@
 import {mapMutations} from 'vuex'
 import skuCardChildren from './sku-card-children.vue'
 export default {
+  inject:['app'],
   data(){
     return {
       list: this.item.list
@@ -47,8 +48,18 @@ export default {
     vModel(key,index,value){
       this.vModelSkuCard({key,index,value})
     },
+    // 排序规格卡片
     sortCard(action,index){
       this.sortSkuCard({action,index})
+    },
+    // 选择规格
+    chooseSkus(){
+      this.app.chooseSkus((res) => {
+        this.vModel('name',this.index,res.name)
+        this.vModel('type',this.index,res.type)
+        this.vModel('list',this.index,res.list)
+        this.list = res.list
+      })
     }
   },
   mounted(){

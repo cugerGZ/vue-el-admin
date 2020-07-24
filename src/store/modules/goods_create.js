@@ -123,7 +123,7 @@ export default {
         delSkuCard(state, index) {
             state.sku_card.splice(index, 1)
         },
-        //修改卡片内容
+        //修改规格卡片内容
         vModelSkuCard(state, { key, index, value }) {
             state.sku_card[index][key] = value
         },
