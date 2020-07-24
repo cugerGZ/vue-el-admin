@@ -45,7 +45,10 @@
       </el-tab-pane>
       <el-tab-pane label="商品属性"></el-tab-pane>
       <el-tab-pane label="媒体设置"></el-tab-pane>
-      <el-tab-pane label="商品详情"></el-tab-pane>
+      <el-tab-pane label="商品详情">
+        <!-- 富文本编辑器 -->
+        <tinymce ref="editor" v-model="msg" @onClick="onClick"/>
+      </el-tab-pane>
       <el-tab-pane label="折扣设置"></el-tab-pane>
     </el-tabs>
   </div>
@@ -57,17 +60,20 @@ import baseCreate from '../../../components/shop/create/base-create.vue'
 import singleAttrs from '../../../components/shop/create/single-attrs.vue'
 import skuCard from '../../../components/shop/create/sku/sku-card.vue'
 import skuTable from '../../../components/shop/create/sku/sku-table'
+import tinymce from '../../../components/common/tinymce'
 export default {
   data(){
     return {
-      tabIndex: 0
+      tabIndex: 0,
+      msg: 'Welcome to Use Tinymce Editor',
     } 
   },
   components:{
     baseCreate,
     singleAttrs,
     skuCard,
-    skuTable
+    skuTable,
+    tinymce
   },
   computed:{
     ...mapState({
@@ -86,7 +92,13 @@ export default {
     },
     handleClick(){
 
-    }
+    },
+    // 鼠标单击的事件
+    onClick (e, editor) {
+        console.log('Element clicked')
+        console.log(e)
+        console.log(editor)
+    },
   }
 }
 </script>

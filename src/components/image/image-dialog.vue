@@ -1,6 +1,6 @@
 <template>
     <!-- 弹窗 -->
-    <el-dialog title="图片管理" :visible.sync="imageModal" width="80%" top="5vh">
+    <el-dialog title="图片管理" :visible.sync="imageModal" width="80%" top="6vh">
       <el-container style="height:70vh; position:relative;margin:-30px -20px">
         <el-header class="d-flex align-items-center border-bottom">
           <div class="d-flex mr-auto" >

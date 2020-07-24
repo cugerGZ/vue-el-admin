@@ -90,7 +90,6 @@ export default {
                 return []
             }
             let arr = $Util.cartesianProductOf(...sku_list)
-            console.log(arr)
             return arr.map(v => {
                 let obj = {
                     skus: [],

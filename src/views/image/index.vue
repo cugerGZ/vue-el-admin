@@ -71,8 +71,8 @@
 
     <!-- 修改、创建相册 -->
     <el-dialog :title="albumModelTitle" :visible.sync="albumModel">
-      <el-form :model="albumForm" label-width="80px" ref="form">
-        <el-form-item label="相册名称">
+      <el-form :model="albumForm" label-width="80px" ref="form" :rules="rules">
+        <el-form-item label="相册名称" prop="name">
           <el-input v-model="albumForm.name" size="medium" placeholder="请输入相册名称"></el-input>
         </el-form-item>
         <el-form-item label="相册排序">
@@ -134,7 +134,13 @@ export default {
       previewUrl:"",
       imageList:[],
       chooseList:[],
-      currentPage:0
+      currentPage:0,
+      rules: {
+        name: [
+          {required:true, message:"相册名称不能为空！", trigger:"blur"},
+          {min:3,max:5,message:"相册名称在3到5个字符",trigger:"blur"}
+        ]
+      }
     }
   },
   created(){
@@ -208,18 +214,24 @@ export default {
     },
     // 点击确定，修改、创建相册
     confirmAlbumModel(){
-      // 修改相册
-      if(this.albumEditIndex > -1){
-        this.albumEdit()
-        return this.albumModel = false
-      }
-      // 创建相册
-      this.albums.unshift({
-        name: this.albumForm.name,
-        order: this.albumForm.order,
-        num: 0
+      this.$refs["form"].validate((valid) => {
+        if(!valid){
+          return false
+        }else{
+          // 修改相册
+          if(this.albumEditIndex > -1){
+            this.albumEdit()
+            return this.albumModel = false
+          }
+          // 创建相册
+          this.albums.unshift({
+            name: this.albumForm.name,
+            order: this.albumForm.order,
+            num: 0
+          })
+          this.albumModel = false
+        }
       })
-      this.albumModel = false
     },
     // 修改相册
     albumEdit(){
