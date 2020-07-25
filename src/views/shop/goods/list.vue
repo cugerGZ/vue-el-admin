@@ -144,7 +144,8 @@ export default {
         code:"",
         category:""
       },
-      tableData: []
+      tableData: [],
+      multipleSelection:[]
     }
   },
   created(){

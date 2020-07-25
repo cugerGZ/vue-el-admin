@@ -22,7 +22,12 @@ let routes = [{
             {
                 meta: { title: '分类管理' },
                 component: 'shop/category/list'
+            },
+            {
+                meta: { title: '商品规格' },
+                component: 'shop/sku/list'
             }
+
         ]
     },
     {

@@ -26,6 +26,10 @@ export default {
     placeholder:{
       type:String,
       default:""
+    },
+    showSearch:{
+      type: Boolean,
+      default: true
     }
   },
   data(){
