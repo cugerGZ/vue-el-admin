@@ -28,7 +28,7 @@
                     <div class="border" :class="{'border-danger':item.ischeck}">
                       <span class="badge badge-danger" style="position:absolute; top:0;right:0;" v-if="item.ischeck">{{item.checkOrder}}</span>
                       <img :src="item.url" alt="" class="w-100" style="height:100px" @click="choose(item)">
-                      <div style="background:rgba(0,0,0,0.5); margin-top:-25px;position:absolute;" class="w-100 text-white px-1">
+                      <div style="background:rgba(0,0,0,0.5); margin-top:-20px;position:absolute;" class="w-100 text-white px-1">
                         <span class="small">{{item.name}}</span>
                       </div>
                       <div class="p-2 text-center">

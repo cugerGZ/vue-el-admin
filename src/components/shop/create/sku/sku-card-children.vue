@@ -4,7 +4,7 @@
       <div class="border py-1 px-2 rounded mr-2 position-relative d-flex align-items-center">
         <div v-if="type !== 0">
           <!-- 颜色选择 -->
-          <el-color-picker size="mini" v-if="type === 1"></el-color-picker>
+          <el-color-picker size="mini" v-if="type === 1" :value="item.color" @change="colorChange"></el-color-picker>
           <!-- 图片选择 -->
           <template v-else>
             <span class="btn btn-light" @click="chooseImage" v-if="!item.image">
@@ -47,10 +47,15 @@ export default {
         value
       })
     },
+    // 选择图片
     chooseImage(){
       this.app.chooseImage((res) => {
         this.vModel('image',res[0].url)
       },1)
+    },
+    // 监听颜色选择器的改变
+    colorChange(e){
+      this.vModel('color',e)
     }
   }
 }

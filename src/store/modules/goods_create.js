@@ -17,7 +17,7 @@ export default {
         cprice: 0, // 成本价格
         weight: 0, // 重量
         volume: 0, // 体积
-
+        //规格卡片
         sku_card: [{
                 name: "颜色",
                 type: 0, // 规格类型 0无 1颜色 2图片
@@ -48,7 +48,15 @@ export default {
                     }
                 ]
             }
-        ], //规格卡片
+        ],
+        // 商品类型
+        goods_type_id: "",
+        // 商品属性
+        goods_attrs: {
+            phone_model: ""
+        },
+        // 会员折扣
+        discount: 0,
         // 表头
         ths: [
             { name: "商品规格", rowspan: 1, colspan: 1, width: "" },
@@ -61,6 +69,8 @@ export default {
             { name: "重量", rowspan: 2, width: "100" },
             { name: "编码", rowspan: 2, width: "100" },
         ],
+        // 商品图片
+        banners: []
     },
     getters: {
         skuLabels(state) {
@@ -151,7 +161,11 @@ export default {
         // 排序规格卡片的规格属性列表
         sortSkuValue(state, { index, value }) {
             state.sku_card[index].list = value
-        }
+        },
+        //修改商品属性
+        vModelGoodsAttrs(state, { key, value }) {
+            state.goods_attrs[key] = value
+        },
     },
     actions: {
 

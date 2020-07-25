@@ -63,6 +63,10 @@ export default {
     }
   },
   mounted(){
+    // 监听list的改变，如果发生变化就赋值给list（解决了交换卡片时，规格值不交换的情况）
+    this.$watch('item.list', (newValue) => {
+      this.list = newValue
+    })
     // 监听拖拽排序结束
     this.$dragging.$on('dragend', (e) => {
       if(e.group === 'skuItem'+ this.index){
