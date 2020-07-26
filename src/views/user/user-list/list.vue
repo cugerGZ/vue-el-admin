@@ -238,6 +238,10 @@
 			submit(){
 				var msg = "添加"
 				if (this.editIndex === -1) {
+          this.form.level = {
+						id:1,
+						name:'普通会员'
+					}
 					this.tableData.unshift(this.form)
 				} else {
 					let item = this.tableData[this.editIndex]
