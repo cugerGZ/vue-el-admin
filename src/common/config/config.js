@@ -44,7 +44,13 @@ export default {
                         icon: "el-icon-menu",
                         name: "商品类型",
                         pathname: "shop_type_list"
+                    },
+                    {
+                        icon: "el-icon-chat-line-square",
+                        name: "商品评论",
+                        pathname: "shop_comment_list"
                     }
+
                 ]
             },
             {
