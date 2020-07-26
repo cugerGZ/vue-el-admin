@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white px-3" style="margin: -20px;margin-top: -1rem;margin-bottom: 0!important;">
-    <!-- 搜索栏 -->
+    <!-- 操作栏 -->
     <div class="pt-3">
       <el-button size="mini" type="success" @click="openModel(false)">添加规格</el-button>
       <el-button size="mini" type="danger" @click="deleteAll">批量删除</el-button>

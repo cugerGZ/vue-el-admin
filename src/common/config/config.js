@@ -39,6 +39,11 @@ export default {
                         icon: "el-icon-s-finance",
                         name: "商品规格",
                         pathname: "shop_sku_list"
+                    },
+                    {
+                        icon: "el-icon-menu",
+                        name: "商品类型",
+                        pathname: "shop_type_list"
                     }
                 ]
             },
