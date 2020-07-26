@@ -59,6 +59,10 @@ export default {
                     icon: "el-icon-tickets",
                     name: "发票管理",
                     pathname: "order_invoice_list"
+                }, {
+                    icon: "el-icon-sell",
+                    name: "售后服务",
+                    pathname: "order_after-sale_list"
                 }]
             },
             {

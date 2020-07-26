@@ -38,6 +38,10 @@ let routes = [{
             {
                 meta: { title: '发票管理' },
                 component: 'order/invoice/list'
+            },
+            {
+                meta: { title: '售后服务' },
+                component: 'order/after-sale/list'
             }
 
         ]
