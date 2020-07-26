@@ -34,6 +34,10 @@ let routes = [{
             {
                 meta: { title: '商品评论' },
                 component: 'shop/comment/list'
+            },
+            {
+                meta: { title: '发票管理' },
+                component: 'order/invoice/list'
             }
 
         ]

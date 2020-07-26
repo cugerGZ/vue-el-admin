@@ -48,7 +48,7 @@
       <el-table-column type="selection" width="45" align="center"></el-table-column>
       <!-- 展开 -->
       <el-table-column type="expand">
-        <template slot-scope="props">
+        <template>
           <div class="media">
             <img class="mr-3" src="http://static.yoshop.xany6.com/2018071718294208f086786.jpg" alt="Generic placeholder image" style="width:70px;width:70px;border-radius:100%">
             <div class="media-body">
