@@ -56,6 +56,10 @@ export default {
                 name: "订单",
                 subActive: '0',
                 submenu: [{
+                    icon: "el-icon-suitcase",
+                    name: "订单管理",
+                    pathname: "order_order_list"
+                }, {
                     icon: "el-icon-tickets",
                     name: "发票管理",
                     pathname: "order_invoice_list"
