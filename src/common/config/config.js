@@ -70,7 +70,13 @@ export default {
                 }]
             },
             {
-                name: "会员"
+                name: "会员",
+                subActive: '0',
+                submenu: [{
+                    icon: "el-icon-user",
+                    name: "会员列表",
+                    pathname: "user_user-list_list"
+                }, ]
             },
             {
                 name: "设置"

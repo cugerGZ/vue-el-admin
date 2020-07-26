@@ -46,6 +46,10 @@ let routes = [{
             {
                 meta: { title: '订单管理' },
                 component: 'order/order/list'
+            },
+            {
+                meta: { title: '会员列表' },
+                component: 'user/user-list/list'
             }
 
         ]
