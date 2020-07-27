@@ -90,9 +90,9 @@ export default {
                     name: "基础设置",
                     pathname: "set_base"
                 }, {
-                    icon: "el-icon-s-data",
-                    name: "会员等级",
-                    pathname: "user_user-level_list"
+                    icon: "el-icon-s-promotion",
+                    name: "物流设置",
+                    pathname: "set_express"
                 }, ]
             },
         ]
