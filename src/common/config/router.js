@@ -66,8 +66,11 @@ let routes = [{
             {
                 meta: { title: '管理员设置' },
                 component: 'set/manager/index'
+            },
+            {
+                meta: { title: '支付设置' },
+                component: 'set/payment/index'
             }
-
         ]
     },
     {

@@ -97,6 +97,10 @@ export default {
                     icon: "el-icon-s-custom",
                     name: "管理员设置",
                     pathname: "set_manager"
+                }, {
+                    icon: "el-icon-s-finance",
+                    name: "支付设置",
+                    pathname: "set_payment"
                 }, ]
             },
         ]
