@@ -83,7 +83,17 @@ export default {
                 }, ]
             },
             {
-                name: "设置"
+                name: "设置",
+                subActive: '0',
+                submenu: [{
+                    icon: "el-icon-setting",
+                    name: "基础设置",
+                    pathname: "set_base"
+                }, {
+                    icon: "el-icon-s-data",
+                    name: "会员等级",
+                    pathname: "user_user-level_list"
+                }, ]
             },
         ]
     }

@@ -54,6 +54,10 @@ let routes = [{
             {
                 meta: { title: '会员等级' },
                 component: 'user/user-level/list'
+            },
+            {
+                meta: { title: '基础设置' },
+                component: 'set/base/index'
             }
 
         ]
