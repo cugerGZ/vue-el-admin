@@ -93,6 +93,10 @@ export default {
                     icon: "el-icon-s-promotion",
                     name: "物流设置",
                     pathname: "set_express"
+                }, {
+                    icon: "el-icon-s-custom",
+                    name: "管理员设置",
+                    pathname: "set_manager"
                 }, ]
             },
         ]

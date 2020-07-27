@@ -62,6 +62,10 @@ let routes = [{
             {
                 meta: { title: '物流设置' },
                 component: 'set/express/index'
+            },
+            {
+                meta: { title: '管理员设置' },
+                component: 'set/manager/index'
             }
 
         ]
