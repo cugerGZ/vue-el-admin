@@ -45,7 +45,7 @@
       <!-- 角色列表 -->
       <el-tab-pane label="角色列表" name="second">
         <div>
-          <el-button size="mini" type="primary">添加角色</el-button>
+          <el-button size="mini" type="primary" v-auth="'添加角色'">添加角色</el-button>
         </div>
         <el-table border class="mt-3" :data="groupList" style="width: 100%">
           <!-- 角色名称-->
@@ -76,7 +76,7 @@
             </div>
             <span>
               <el-button size="mini" :type="data.status ? 'primary':'danger'" @click.stop="showOrHide(data)">{{data.status ? '显示' : '隐藏'}}</el-button>
-              <el-button size="mini" type="success" @click="append(data)">增加</el-button>
+              <el-button size="mini" type="success" @click="append(data)" v-auth="'添加规则'">增加</el-button>
               <el-button size="mini" :type="data.editStatus ? 'default' : 'warning'" @click="edit(data)">{{data.editStatus ? '完成' : '修改'}}</el-button>
               <el-button size="mini" type="danger" @click="remove(node, data)">删除</el-button>
             </span>

@@ -70,6 +70,10 @@ let routes = [{
             {
                 meta: { title: '支付设置' },
                 component: 'set/payment/index'
+            },
+            {
+                meta: { title: '404错误' },
+                component: 'error/404'
             }
         ]
     },

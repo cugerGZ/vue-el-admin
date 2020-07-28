@@ -18,7 +18,7 @@
                   <el-input size="medium" v-model="form.password" type="password" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" size="medium" class="w-100" @click="submit">立即登录</el-button>
+                  <el-button type="primary" size="medium" class="w-100" @click="submit" :loading="loading">{{loading ? '登录中...' : '立即登录'}}</el-button>
                 </el-form-item>
               </el-form>
             </div>
@@ -30,12 +30,14 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   data(){
     return {
+      loading:false,
       form:{
-        username: '',
-        password: ''
+        username: 'admin',
+        password: 'admin'
       },
       rules:{
         username:[
@@ -47,13 +49,32 @@ export default {
       }
     }
   },
+  computed:{
+    ...mapGetters(['adminIndex'])
+  },
   methods: {
     submit(){
       this.$refs.ruleForm.validate((valid) => {
           if (!valid) {
             return 
-          } 
-          this.$router.push({name:'index'})
+          }
+          this.loading = true
+          this.axios.post('/admin/login',this.form).then((res) =>{ 
+            let data = res.data.data
+            // 存储到vuex、本地
+            this.$store.commit('login',data)
+            // 生成权限规则
+            if(data.role && data.role.rules){
+              window.sessionStorage.setItem('rules', JSON.stringify(data.role.rules))
+            }
+            // 生成后台菜单
+            this.$store.commit('createNavBar', data.tree)
+            this.$message.success('登陆成功')
+            this.loading = false
+            this.$router.push({name:this.adminIndex})
+          }).catch(() => {
+            this.loading = false
+          })
       })
     }
   }
