@@ -4,12 +4,23 @@
       <el-container style="height:70vh; position:relative;margin:-30px -20px">
         <el-container>
           <!-- 侧边栏-->
-          <el-aside width="200px" style="position:absolute; top:0px;left:0;bottom:0px" class="bg-white border-right">
+          <el-aside width="200px" style="position:absolute; top:0px;left:0;bottom:50px" class="bg-white border-right">
             <!-- 规格卡片标题 -->
             <ul class="list-group list-group-flush">
               <li class="list-group-item list-group-item-action" v-for="(item,index) in skusList" :key="index" :class="skuIndex === index ? 'sum-active': ''" @click="changeSku(index)">{{item.name}}</li>
             </ul>
           </el-aside>
+          <el-footer style="position:absolute; left:0;bottom:0;height:50px;width:200px;display:flex; align-items:center;justify-content:center" class="border">
+            <el-pagination
+              :current-page="page.current"
+              :page-sizes="page.sizes"
+              :page-size="page.size"
+              layout=" prev, next"
+              :total="page.total"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange">
+            </el-pagination>
+          </el-footer>
           <!-- 主内容 -->
           <el-container>
             <el-header style="position:absolute;top:0;left:200px;right:0; height:60px;line-height:50px" class="border-top border-bottom">
@@ -31,58 +42,44 @@
 </template>
 
 <script>
+import common from '../../common/mixins/common.js'
 export default {
-  
+  mixins:[common],
   data(){
     return {
+      preUrl:"skus",
       createModal: false,
       callback: false,
       chooseList:[], // 选中的规格
       skuIndex:0, // 选中规格项的索引值
-      skusList:[{
-            name: "颜色",
-            type: 0, 
-            list: [{
-                    id:1,
-                    name: "黄色",
-                    image: "",
-                    color: "",
-                    ischeck:false
-                },{ 
-                    id:2,
-                    name: "红色",
-                    image: "",
-                    color: "",
-                    ischeck:false
-                }]
-        },
-        {
-            name: "尺寸",
-            type: 0, 
-            list: [{
-                    id:3,
-                    name: "X",
-                    image: "",
-                    color: "",
-                    ischeck:false
-                },{
-                    id:4,
-                    name: "XL",
-                    image: "",
-                    color: "",
-                    ischeck:false
-                }]
-        }
-    ],
+      skusList:[],
+      loading:false
     }
   },
   methods:{
+    // 处理数据结果
+    getListResult(e){
+      console.log(e)
+      this.skusList = e.list.map(item => {
+        let list = item.default.split(',')
+        item.list = list.map( name => {
+          return {
+            name: name,
+            image:"",
+            color:"",
+            ischeck: false
+          }
+        })
+        return item 
+      })
+    },
     // 弹出确认
     confirm(){
       // 返回选中的规格
       if(typeof this.callback === 'function'){
         let item = this.skusList[this.skuIndex]
         this.callback({
+          id: item.id,
           name: item.name,
           type: item.type,
           list:this.chooseList
@@ -149,7 +146,8 @@ export default {
   computed:{
     // 当前规格下的规格属性列表
     skuItems(){
-      return this.skusList[this.skuIndex].list
+      let item = this.skusList[this.skuIndex]
+      return item ? item.list : []
     },
     // 是否全选
     isChooseAll(){

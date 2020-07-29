@@ -13,7 +13,7 @@
 
 					<el-submenu index="100">
 						<template slot="title">
-							<el-avatar size="small" :src="user.avatar ? user.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"></el-avatar>
+							<el-avatar size="small" src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"></el-avatar>
 							{{user.username}}
 						</template>
 						<el-menu-item index="100-1">修改</el-menu-item>
@@ -66,9 +66,7 @@
 
 <script>
 	import common from "@/common/mixins/common.js"
-	import {
-		mapState
-	} from 'vuex'
+	import { mapState } from 'vuex'
 	export default {
 		mixins: [common],
 		provide(){
@@ -78,14 +76,14 @@
 		},
 		data() {
 			return {
-				//navBar:[],
+				navBar:[],
 				bran: [],
 				loading: false
 			}
 		},
 		created() {
 			// 初始化菜单
-			//this.navBar = this.$conf.navBar
+			this.navBar = this.$conf.navBar
 			// 获取面包屑导航
 			this.getRouterBran()
 			// 初始化选中菜单
@@ -104,7 +102,7 @@
 		computed: {
 			...mapState({
 				user: state => state.user.user,
-				navBar: state => state.menu.navBar
+				// navBar: state => state.menu.navBar
 			}),
 			slideMenuActive: {
 				get() {
@@ -121,30 +119,36 @@
 			}
 		},
 		methods: {
-			// 加载更多通用方法
-			getList(options) {
+			showLoading(){
 				this.loading = true
-				this.axios.get(options.url, {
-					token: true
-				}).then(res => {
-					let result = res.data.data
-					let list = result.list
-					if (options.success && typeof options.success === 'function') {
-						options.success({
-							list,
-							totalCount: result.totalCount
-						})
-					}
-					this.loading = false
-				}, err => {
-					if (options.fail && typeof options.fail === 'function') {
-						options.fail({
-							err
-						})
-					}
-					this.loading = false
-				})
 			},
+			hideLoading(){
+				this.loading = false
+			},
+			// 加载更多通用方法
+			// getList(options) {
+			// 	this.loading = true
+			// 	this.axios.get(options.url, {
+			// 		token: true
+			// 	}).then(res => {
+			// 		let result = res.data.data
+			// 		let list = result.list
+			// 		if (options.success && typeof options.success === 'function') {
+			// 			options.success({
+			// 				list,
+			// 				totalCount: result.totalCount
+			// 			})
+			// 		}
+			// 		this.loading = false
+			// 	}, err => {
+			// 		if (options.fail && typeof options.fail === 'function') {
+			// 			options.fail({
+			// 				err
+			// 			})
+			// 		}
+			// 		this.loading = false
+			// 	})
+			// },
 			__initNavBar() {
 				let r = localStorage.getItem('navActive')
 				if (r) {

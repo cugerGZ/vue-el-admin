@@ -9,8 +9,7 @@
 					<el-input v-model="keyword" :placeholder="placeholder" size="mini" style="width:150px;" class="mr-2"></el-input>
 					<el-button type="info" size="mini"
 					@click="$emit('search',keyword)">搜索</el-button>
-					<el-button size="mini" 
-					@click="superSearch = true">高级搜索</el-button>
+					<el-button size="mini" @click="superSearch = true" v-if="showSuperSearch">高级搜索</el-button>
 				</slot>
 			</div>
 			
@@ -35,6 +34,10 @@
 				default: ""
 			},
 			showSearch:{
+				type:Boolean,
+				default:true
+			},
+			showSuperSearch: {
 				type:Boolean,
 				default:true
 			}
