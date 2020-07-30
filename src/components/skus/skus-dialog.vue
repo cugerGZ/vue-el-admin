@@ -59,7 +59,6 @@ export default {
   methods:{
     // 处理数据结果
     getListResult(e){
-      console.log(e)
       this.skusList = e.list.map(item => {
         let list = item.default.split(',')
         item.list = list.map( name => {
