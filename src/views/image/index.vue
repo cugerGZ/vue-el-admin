@@ -189,29 +189,30 @@
 				// 选中的数组
 				chooseList:[],
 				currentPage:1,
-				
 				pageSize:10,
 				pageSizes:[10,20,50,100],
-				total:100,
+				total:10
 			}
 		},
 		computed: {
 			albumModelTitle() {
 				return this.albumEditIndex > -1 ? '修改相册' : '创建相册' 
 			},
-			// 当前选中相册的id
+			// 选中相册id
 			image_class_id(){
-				let current = this.albums[this.albumIndex]
-				return current ? current.id : 0
-      },
-      // 当前选中的相册的图片列表的url
-			imageListUrl(){
-				let id = this.image_class_id
+				let item = this.albums[this.albumIndex]
+				if(item){
+					return item.id
+				}
+				return 0
+			},
+			// 当前选中相册的图片列表URL
+			getImageListUrl(){
 				let other = ''
 				if(this.searchForm.keyword != ''){
 					other = `&keyword=${this.searchForm.keyword}`
 				}
-				return `/admin/imageclass/${id}/image/${this.currentPage}?limit=${this.pageSize}&order=${this.searchForm.order}${other}`
+				return `/admin/imageclass/${this.image_class_id}/image/${this.currentPage}?limit=${this.pageSize}&order=${this.searchForm.order}${other}`
 			}
 		},
 		created() {
@@ -269,67 +270,47 @@
 				// 重置序号
 				item.checkOrder = 0
 			},
-			// 获取相册分类列表
-			getAlbumList(){
-				this.layout.getList({
-					url:"/admin/imageclass/"+this.albumPage,
-					limit:10,
-					success:(res)=>{
-						this.albums = res.list
-						this.albumTotal = res.totalCount
-						// 获取第一个分类下的图片
-						this.getImageList()
-					},
-					fail:()=>{
-						if(this.albumPage > 1){
-							this.albumPage--
-						}
-					}
-				})
-			},
-			// 切换相册页
-			changeAlbumPage(type){
-				if(type === 'next'){
-					this.albumPage++
-				} else {
-					this.albumPage--
-				}
-				this.getAlbumList()
-      },
-      // 获取相册图片列表
+			// 获取对应相册下的图片列表
 			getImageList(){
-				this.layout.getList({
-					url:this.imageListUrl,
-					limit:this.pageSize,
-					success:(res)=>{
-						this.imageList = res.list.map(item=>{
-							return {
-								id:item.id,
-								url:item.url,
-								name:item.name,
-								ischeck:false,
-								checkOrder:0
-							}
-						})
-						this.total = res.totalCount
-					},
-					fail:()=>{
-						if(this.currentPage > 1){
-							this.currentPage--
+				this.layout.showLoading()
+				this.axios.get(this.getImageListUrl,{
+					token:true
+				}).then(res=>{
+					let result = res.data.data
+					this.imageList = result.list.map(item=>{
+						return { 
+							id:item.id,
+							url:item.url,
+							name:item.name,
+							ischeck:false,
+							checkOrder:0
 						}
-					}
+					})
+					this.total = result.totalCount
+					this.layout.hideLoading()
+				}).catch(()=>{
+					this.layout.hideLoading()
 				})
 			},
 			__init() {
-				// 获取相册分类
-				this.getAlbumList()
+				// 获取相册列表
+				this.layout.showLoading()
+				this.axios.get('/admin/imageclass/'+this.albumPage,{
+					token:true
+				}).then(res=>{
+					let result = res.data.data
+					this.albums = result.list
+					this.albumTotal = result.totalCount
+					// 获取选中相册下的第一页图片列表
+					this.getImageList()
+				}).catch(()=>{
+					this.layout.hideLoading()
+				})
 			},
 			// 切换相册
 			albumChange(index){
 				this.albumIndex = index
-				this.albumPage = 1
-				this.currentPage = 1
-				this.getAlbumList()
+				this.getImageList()
 			},
 			// 打开相册修改/创建框
 			openAlbumModel(obj){
@@ -359,34 +340,37 @@
 					return this.albumModel = false
 				}
 				// 创建相册
-				let { order,name } = this.albumForm
-				this.axios.post("/admin/imageclass",
-				{ order,name },{
+				this.layout.showLoading()
+				this.axios.post('/admin/imageclass',this.albumForm,{
 					token:true
 				}).then(()=>{
+					// 隐藏表单
+					this.albumModel = false
+					this.layout.hideLoading()
 					this.$message({
 						message: '创建成功',
 						type: 'success'
 					});
 					this.__init()
-					this.albumModel = false
+				}).catch(()=>{
+					this.layout.hideLoading()
 				})
 			},
 			// 修改相册
 			albumEdit(){
 				let item = this.albums[this.albumEditIndex]
-				let { order,name } = this.albumForm
-				this.axios.post("/admin/imageclass/"+item.id,
-				{ order,name },{
+				this.layout.showLoading()
+				this.axios.post('/admin/imageclass/'+item.id,this.albumForm,{
 					token:true
-				}).then((res)=>{
-					if(res.data.data){
-						this.$message({
-							message: '修改成功',
-							type: 'success'
-						});
-						this.__init()
-					}
+				}).then(()=>{
+					this.$message({
+						message: '修改成功',
+						type: 'success'
+					});
+					this.layout.hideLoading()
+					this.__init()
+				}).catch(()=>{
+					this.layout.hideLoading()
 				})
 			},
 			// 删除相册
@@ -396,16 +380,19 @@
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					let item = this.albums[index]
-					this.axios.delete("/admin/imageclass/"+item.id,
-					{
+					let id = this.albums[index].id
+					this.layout.showLoading()
+					this.axios.delete('/admin/imageclass/'+id,{
 						token:true
 					}).then(()=>{
-						this.__init()
 						this.$message({
 							message: '删除成功',
 							type: 'success'
 						});
+						this.__init()
+						this.layout.hideLoading()
+					}).catch(()=>{
+						this.layout.hideLoading()
 					})
 				})
 			},
@@ -414,29 +401,32 @@
 				this.previewUrl = item.url
 				this.previewModel = true
 			},
-			// 修改图片名称  
+			// 修改图片名称
 			imageEdit(item){
 				this.$prompt('请输入新名称', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputValue:item.name,
-          inputValidator(val){
-            if (val === '') {
-              return '图片名称不能为空'
-            }
-          }
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					inputValue:item.name,
+					inputValidator(val){
+						if (val === '') {
+							return '图片名称不能为空'
+						}
+					}
 				}).then(({ value }) => {
-					item.name = value
+					this.layout.showLoading()
 					this.axios.post('/admin/image/'+item.id,{
 						name:value
 					},{
 						token:true
 					}).then(()=>{
 						this.__init()
+						this.layout.hideLoading()
 						this.$message({
 							message: '修改成功',
 							type: 'success'
 						});
+					}).catch(()=>{
+						this.layout.hideLoading()
 					})
 				})
 			},
@@ -448,58 +438,71 @@
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-          // 批量删除
+					this.layout.showLoading()
 					if (obj.all) {
-						return this.axios.post('/admin/image/delete_all',{
-							ids:this.chooseList.map(v=>v.id)
+						// 批量删除
+						let ids = this.chooseList.map(item=>item.id)
+						this.axios.post('/admin/image/delete_all',{
+							ids:ids
 						},{
 							token:true
 						}).then(()=>{
-							this.chooseList = []
-							this.__init()
 							this.$message({
 								message: '删除成功',
 								type: 'success'
 							});
+							this.__init()
+							this.chooseList = []
+							this.layout.hideLoading()
+						}).catch(()=>{
+							this.layout.hideLoading()
 						})
-					}
-					// 删除单个
-					this.axios.delete('/admin/image/'+obj.item.id,{
-						token:true
-					}).then(()=>{
-						this.__init()
-						this.$message({
-							message: '删除成功',
-							type: 'success'
-						});
-					})
-					
+					}else{
+						// 删除单个
+						this.axios.delete('/admin/image/'+obj.item.id,{
+							token:true
+						}).then(()=>{
+							this.$message({
+								message: '删除成功',
+								type: 'success'
+							});
+							this.__init()
+							this.layout.hideLoading()
+						}).catch(()=>{
+							this.layout.hideLoading()
+						})
+					}	
 				})
-      },
-      // 更改每页显示的数量
+			},
 			handleSizeChange(val) {
 				this.pageSize = val
-				this.currentPage = 1
 				this.getImageList()
-      },
-      // 更改当前页
+			},
 			handleCurrentChange(val) {
 				this.currentPage = val
 				this.getImageList()
-      },
-      // 上传成功
+			},
+			// 相册分页功能
+			changeAlbumPage(type){
+				if(type === 'pre'){
+					this.albumPage--
+				} else {
+					this.albumPage++
+				}
+				this.__init()
+			},
+			// 上传成功
 			uploadSuccess(){
 				this.$message({
-          message: '上传成功',
-          type: 'success'
-        });
-      },
-      // 上传失败
+					message: '上传成功',
+					type: 'success'
+				});
+			},
 			uploadError(){
 				this.$message({
-          message: '上传失败，请稍后重试',
-          type: 'error'
-        });
+					message: '上传失败，请稍后重试',
+					type: 'success'
+				});
 			}
 		},
 	}
