@@ -5,7 +5,7 @@
     </el-tabs>
     <button-search placeholder="要搜索的订单编号" @search="searchEvent" ref="buttonSearch">
       <template #left>
-        <el-button type="success" size="mini">导出数据</el-button>
+        <el-button type="success" size="mini" @click="exportModal = true">导出数据</el-button>
         <el-button type="danger" size="mini" @click="deleteAll">批量删除</el-button>
       </template> 
       <template #form>
@@ -159,6 +159,34 @@
         <el-button type="primary" @click="shipSubmit">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 导出数据 -->
+    <el-dialog
+      title="订单发货" :visible.sync="exportModal" width="40%">
+      <el-form :model="exportForm" >
+        <el-form-item label="订单类型" prop="tab" label-width="80px">
+          <el-select v-model="exportForm.tab" placeholder="请选择" size="small">
+            <el-option v-for="(item, index) in tabbars" :key="index" :label="item.name" :value="item.key">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="时间范围" prop="time" label-width="80px">
+          <el-date-picker
+            size="small"
+            v-model="exportForm.time"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="exportModal = false">取 消</el-button>
+        <el-button type="primary" @click="exportExcel">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -197,7 +225,12 @@ export default {
         express_no:""
       },
       shipId:0,
-      express_company_options:[]
+      express_company_options:[],
+      exportModal:false,
+      exportForm:{
+        tab:"",
+        time:""
+      }
     }
   },
   created(){
@@ -269,7 +302,7 @@ export default {
       this.shipModal =true
       this.shipId = item.id
     },
-    // 
+    // 提交发货
     shipSubmit(){
       this.axios.post('/admin/order/'+ this.shipId+'/ship', this.shipForm,{
         token:true
@@ -278,6 +311,50 @@ export default {
         this.$message({
           type: "success",
           message:"发货成功"
+        })
+      })
+    },
+    // 导出数据
+    exportExcel(){
+      if(!this.exportForm.tab){
+        return this.$message({
+          type: "error",
+          message:"请选择订单类型"
+        })
+      }
+      let url = `/admin/order/excelexport?tab=${this.exportForm.tab}`
+      let time = this.exportForm.time
+      let str =""
+      if(time && Array.isArray(time) ){
+          str +=`&starttime=${time[0]}`
+          str +=`&endtime=${time[1]}`
+        }
+      this.layout.showLoading()
+      this.axios.post(url + str, {},{
+        token:true,
+        responseType: 'blob'
+      }).then((res) => {
+        if (res.status == 200) {
+            let url = window.URL.createObjectURL(new Blob([res.data]))
+            let link= document.createElement('a')
+            link.style.display='none'
+            link.href=url
+            let filename = new Date().getTime() + '.xlsx';
+            link.setAttribute('download', filename)
+            document.body.appendChild(link)
+            link.click()
+        }
+        this.layout.hideLoading()
+        this.exportModal = false
+        this.$message({
+          type: "success",
+          message:"导出成功"
+        })
+      }).catch(() => {
+        this.layout.hideLoading()
+        this.$message({
+            type:"error",
+            message:"导出失败"
         })
       })
     }
