@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<div class="main" v-title data-title="FE-ADMIN"></div>
 		<el-container style="position: absolute;left: 0;top: 0;bottom: 0;right: 0; overflow: hidden;">
 			<el-header class="d-flex align-items-center" style="background: #545c64;">
 				<a class="h5 text-light mb-0 mr-auto" href="/index" style="text-decoration: none;">

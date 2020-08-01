@@ -9,6 +9,12 @@ import {
     Message,
 } from 'element-ui'
 
+// 添加标签名称
+Vue.directive('title', {
+    inserted: function(el) {
+        document.title = el.dataset.title
+    }
+})
 let loading = null
 let requestCount = 0
 

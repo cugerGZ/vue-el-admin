@@ -1,5 +1,5 @@
 export default {
-    logo: 'YoYo-ADMIN',
+    logo: 'FE-ADMIN',
     navBar: {
         active: '0',
         list: [{
