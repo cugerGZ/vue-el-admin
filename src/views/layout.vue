@@ -1,9 +1,8 @@
 <template>
 	<div>
-
 		<el-container style="position: absolute;left: 0;top: 0;bottom: 0;right: 0; overflow: hidden;">
 			<el-header class="d-flex align-items-center" style="background: #545c64;">
-				<a class="h5 text-light mb-0 mr-auto">
+				<a class="h5 text-light mb-0 mr-auto" href="/index" style="text-decoration: none;">
 					{{$conf.logo}}
 				</a>
 				<el-menu :default-active="navBar.active" mode="horizontal" @select="handleSelect" background-color="#545c64"
@@ -125,30 +124,6 @@
 			hideLoading(){
 				this.loading = false
 			},
-			// 加载更多通用方法
-			// getList(options) {
-			// 	this.loading = true
-			// 	this.axios.get(options.url, {
-			// 		token: true
-			// 	}).then(res => {
-			// 		let result = res.data.data
-			// 		let list = result.list
-			// 		if (options.success && typeof options.success === 'function') {
-			// 			options.success({
-			// 				list,
-			// 				totalCount: result.totalCount
-			// 			})
-			// 		}
-			// 		this.loading = false
-			// 	}, err => {
-			// 		if (options.fail && typeof options.fail === 'function') {
-			// 			options.fail({
-			// 				err
-			// 			})
-			// 		}
-			// 		this.loading = false
-			// 	})
-			// },
 			__initNavBar() {
 				let r = localStorage.getItem('navActive')
 				if (r) {
@@ -231,7 +206,3 @@
 		}
 	}
 </script>
-
-<style>
-
-</style>

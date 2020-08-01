@@ -101,7 +101,7 @@
               <el-button type="text" size="mini" @click="navigate('shop_goods_attr',scope.row.id)" :class="scope.row.goods_attrs.length == 0 ? 'text-danger' :''">商品属性</el-button>
               <el-button type="text" size="mini" @click="navigate('shop_goods_banner',scope.row.id)" :class="scope.row.goods_banner.length == 0 ? 'text-danger' :''">媒体设置</el-button>
               <el-button type="text" size="mini" @click="navigate('shop_goods_content',scope.row.id)" :class="!scope.row.content ? 'text-danger' :''">商品详情</el-button>
-              <el-button type="text" size="mini" @click="discount(scope.row)">折扣设置</el-button>
+              <el-button type="text" size="mini" @click="discount(scope.row)" :class="scope.row.discount == 10 ? 'text-danger' :''">折扣设置</el-button>
               <el-button type="text" size="mini" @click="deleteItem(scope.row)">删除商品</el-button>
             </template>
           </el-table-column>
