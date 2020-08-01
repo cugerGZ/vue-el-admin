@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="main" v-title data-title="FE-ADMIN"></div>
     <div class="container">
       <div class="row">
         <div class="col-12 col-sm-9 col-md-7 col-lg-6  m-auto pt-5">
