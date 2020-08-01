@@ -53,8 +53,6 @@
           </div>
           <div class="px-2" style="flex:1">
             <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
             :current-page="currentPage"
             :page-sizes="pageSizes"
             :page-size="pageSize"
@@ -271,13 +269,6 @@ export default {
         }
       }
       this.chooseList.splice(i,1)
-    },
-    // 分页
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
     },
     // 取消选中
     unChoose(){

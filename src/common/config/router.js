@@ -16,6 +16,22 @@ let routes = [{
                 component: 'shop/goods/create'
             },
             {
+                meta: { title: '商品详情' },
+                component: 'shop/goods/content'
+            },
+            {
+                meta: { title: '媒体设置' },
+                component: 'shop/goods/banner'
+            },
+            {
+                meta: { title: '商品属性' },
+                component: 'shop/goods/attr'
+            },
+            {
+                meta: { title: '商品规格' },
+                component: 'shop/goods/sku'
+            },
+            {
                 meta: { title: '相册管理' },
                 component: 'image/index'
             },

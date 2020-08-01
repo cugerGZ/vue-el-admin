@@ -6,7 +6,7 @@
 		</div>
 
 
-		<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" default-expand-all :expand-on-click-node="false"
+		<el-tree :data="data" :props="defaultProps" default-expand-all :expand-on-click-node="false"
 		draggable @node-drop="nodeDrop" @node-drag-end="nodeDragEnd">
 
 			<span class="custom-tree-node" slot-scope="{ node, data }">
@@ -91,9 +91,6 @@
 				}).catch(()=>{
 					this.layout.hideLoading()
 				})
-			},
-			handleNodeClick(data) {
-				console.log(data);
 			},
 			// 显示/隐藏
 			showOrHide(data) {

@@ -326,9 +326,9 @@ export default {
       let time = this.exportForm.time
       let str =""
       if(time && Array.isArray(time) ){
-          str +=`&starttime=${time[0]}`
-          str +=`&endtime=${time[1]}`
-        }
+        str +=`&starttime=${time[0]}`
+        str +=`&endtime=${time[1]}`
+      }
       this.layout.showLoading()
       this.axios.post(url + str, {},{
         token:true,
