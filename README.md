@@ -17,4 +17,4 @@ npm run build
 
 ### 商城架构图
 
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0806/114425_c2c2724b_5608419.png "商城后台管理系统.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0806/114505_835c24d4_5608419.png "商城后台.png")
