@@ -1,24 +1,20 @@
-# vue-el-admin
+#  基于Element UI 的电商管理系统 
 
-## Project setup
+### 项目初始化：
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 项目启动
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 项目打包
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 商城架构图
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0806/114425_c2c2724b_5608419.png "商城后台管理系统.png")
